@@ -17,6 +17,6 @@ description = "Amazon Managed Buildpacks based on Amazon Linux System"
     optional = true
 
 [stack]
-  build-image = "aws-23-build:latest"
-  id = "io.buildpacks.stacks.amazonlinux.2023"
-  run-image = "aws-23-run:latest"
+  build-image = "aws-buildpack-build:latest"
+  id = "aws-23"
+  run-image = "aws-buildpack-run:latest"

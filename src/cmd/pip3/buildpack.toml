@@ -1,0 +1,15 @@
+api = "0.8"
+
+[buildpack]
+  homepage = "https://github.com/aws/aws-buildpacks"
+  id = "python-pip3"
+  version = "0.0.1"
+  name = "AWS Managed Buildpack for Pip3"
+  sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
+
+[targets]
+os = "linux"
+arch = "arm64"
+
+[[stacks]]
+ id = "*"

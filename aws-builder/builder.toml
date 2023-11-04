@@ -1,0 +1,22 @@
+description = "Amazon Managed Buildpacks based on Amazon Linux System"
+
+[[buildpacks]]
+  uri = "./python"
+
+[[buildpacks]]
+  uri = "./pip3"
+
+
+[[order]]
+  [[order.group]]
+    id = "python-runtime"
+    version = "0.0.1"
+  [[order.group]]
+    id = "python-pip3"
+    version = "0.0.1"
+    optional = true
+
+[stack]
+  build-image = "aws-23-build:latest"
+  id = "io.buildpacks.stacks.amazonlinux.2023"
+  run-image = "aws-23-run:latest"

@@ -7,19 +7,20 @@ api = "0.8"
   name = "AWS Managed Buildpack for Python Runtime"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
 
-[targets]
-os = "linux"
-arch = "amd64"
-
 [metadata]
     [metadata.default-versions]
         python = "3.11.*"
     
-    [metadata.dependencies]
+    [[metadata.dependencies]]
+        checksum = "sha256:aaf7e556c9caf62410dade6a4a6392d2df42ddf4138e9f52032cd2d09ab730e5"
+        cpe = "cpe:2.3:a:a:python:py:3.11.2:*:*:*:*:*:*:*"
+        licenses = ["BSD-3-Clause"]
+        name = "python"
         id = "python"
-        uri = "../../cargo/python3/python3.11.2.tar.gz"
+        uri = "https://github.com/dreamyang-liu/Buildpack/releases/download/Dependency/python3.11.2.tar.gz"
         version = "3.11.2"
-        strip-components = 1
+        strip-components = 0
+        stacks = ["*"]
 
 [[stacks]]
  id = "*"

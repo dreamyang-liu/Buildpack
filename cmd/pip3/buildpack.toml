@@ -7,9 +7,5 @@ api = "0.8"
   name = "AWS Managed Buildpack for Pip3"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
 
-[targets]
-os = "linux"
-arch = "amd64"
-
 [[stacks]]
  id = "*"

@@ -25,20 +25,20 @@ func NewPipBuildFunc(logs scribe.Emitter, clock chronos.Clock) packit.BuildFunc 
 		}
 
 		duration, err := clock.Measure(func() error {
-			return pexec.NewExecutable(fmt.Sprintf("%s/bin/pip", pythonPath)).Execute(execution)
+			return pexec.NewExecutable(fmt.Sprintf("%s/bin/python3", pythonPath)).Execute(execution)
 		})
 
 		logs.Detail("pip install completed in %s", duration.Seconds())
 
 		if err != nil {
-			return packit.BuildResult{}, packit.Fail.WithMessage("pip install failed")
+			return packit.BuildResult{}, err
 		}
 
 		launchMetadata := packit.LaunchMetadata{
 			Processes: []packit.Process{
 				{
 					Type:    "web",
-					Command: "python app.py",
+					Command: "python3 app.py",
 					Default: true,
 				},
 			},
@@ -51,7 +51,7 @@ func NewPipBuildFunc(logs scribe.Emitter, clock chronos.Clock) packit.BuildFunc 
 		}
 
 		return packit.BuildResult{
-			Plan:   context.Plan,
+			Layers: []packit.Layer{},
 			Launch: launchMetadata,
 			Build:  packit.BuildMetadata{},
 		}, nil

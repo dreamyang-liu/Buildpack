@@ -1,4 +1,4 @@
 #!/bin/bash
-cp ./aws-builder/builder.toml ./output/builder.toml
+cp ./builders/builder.toml ./builders/builder.toml
 cd ./output
-pack builder create io.buildpacks.stacks.amazonlinux.2023:drmyang --config ./builder.toml -v
+pack builder create drmyang-builder:drmyang --config ./builder.toml -v

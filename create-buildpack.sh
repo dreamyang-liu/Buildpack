@@ -1,12 +1,13 @@
 #!/bin/bash
-runtime=$1
+dependency=$1
 
-if [ -z "$runtime" ]; then
-  echo "Usage: $0 <runtime>"
+if [ -z "$dependency" ]; then
+  echo "Usage: $0 <dependency>"
   exit 1
 fi
-rm -rf ./output/$runtime
-mkdir -p ./output/$runtime/bin
-go build -ldflags="-s -w" -o ./output/$runtime/bin/detect ./cmd/$runtime/main.go
-go build -ldflags="-s -w" -o ./output/$runtime/bin/build ./cmd/$runtime/main.go
-cp ./cmd/$runtime/buildpack.toml ./output/$runtime/buildpack.toml
+rm -rf ./output/$dependency
+mkdir -p ./output/$dependency/bin
+go build -ldflags="-s -w" -o ./output/$dependency/bin/main ./cmd/$dependency/main.go
+cp ./output/$dependency/bin/main ./output/$dependency/bin/detect
+cp ./output/$dependency/bin/main ./output/$dependency/bin/build
+cp ./cmd/$dependency/buildpack.toml ./output/$dependency/buildpack.toml

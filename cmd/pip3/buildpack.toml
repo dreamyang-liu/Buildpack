@@ -7,5 +7,10 @@ api = "0.8"
   name = "AWS Managed Buildpack for Pip3"
   sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
 
+  [[requires]]
+    id = "python-runtime"
+    name = "AWS Managed Buildpack for Python Runtime"
+    version = "0.0.1"
+
 [[stacks]]
  id = "*"

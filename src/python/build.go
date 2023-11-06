@@ -30,7 +30,7 @@ func NewPythonBuildFunc(logs scribe.Emitter, entryResolver draft.Planner, depend
 		if !ok {
 			version = "default"
 		}
-		
+
 		pythonLayer.Launch, pythonLayer.Build, pythonLayer.Cache = true, true, true
 
 		dependency, err := dependencyManager.Resolve(filepath.Join(context.CNBPath, "buildpack.toml"), entry.Name, version, context.Stack)

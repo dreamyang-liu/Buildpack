@@ -6,6 +6,8 @@ description = "Amazon Managed Buildpacks based on Amazon Linux System"
 [[buildpacks]]
   uri = "./pip3"
 
+[[buildpacks]]
+  uri = "./nodejs"
 
 [[order]]
   [[order.group]]
@@ -15,6 +17,12 @@ description = "Amazon Managed Buildpacks based on Amazon Linux System"
     id = "python-pip3"
     version = "0.0.1"
     optional = true
+
+[[order]]
+  [[order.group]]
+    id = "nodejs-runtime"
+    version = "0.0.1"
+
 
 [stack]
   build-image = "aws-buildpack-build:latest"

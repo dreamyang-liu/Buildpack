@@ -1,0 +1,24 @@
+api = "0.8"
+
+[buildpack]
+  homepage = "https://github.com/aws/aws-buildpacks"
+  id = "nodejs-runtime"
+  version = "0.0.1"
+  name = "AWS Managed Buildpack for Nodejs Runtime"
+  sbom-formats = ["application/vnd.cyclonedx+json", "application/spdx+json", "application/vnd.syft+json"]
+
+[metadata]
+  [metadata.default-versions]
+    nodejs = "18.17.*"
+
+  [[metadata.dependencies]]
+    id = "nodejs"
+    name = "nodejs"
+    uri = "https://nodejs.org/dist/v18.17.1/node-v18.17.1-linux-x64.tar.xz"
+    version = "18.17.1"
+    checksum = "sha256:07e76408ddb0300a6f46fcc9abc61f841acde49b45020ec4e86bb9b25df4dced"
+    strip-components = 1
+    stacks = ["*"]
+
+[[stacks]]
+ id = "*"

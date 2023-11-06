@@ -3,7 +3,7 @@ package nodejs
 import (
 	"os"
 	"path/filepath"
-	"strings"
+	"regexp"
 
 	"aws-buildpacks/src/common"
 
@@ -56,18 +56,10 @@ func NewNodejsDetectFunc(logs scribe.Emitter) packit.DetectFunc {
 			})
 		}
 
-		entries, err := os.ReadDir("./")
-		if err != nil {
-			return packit.DetectResult{}, err
-		}
-		match := 0
-		for _, e := range entries {
-			if strings.HasSuffix(e.Name(), ".js") {
-				match += 1
-			}
-		}
+		regexExpression, _ := regexp.Compile(`.+\.js`)
+		match := common.RecursiveSearch(logs, context.WorkingDir, *regexExpression)
 		if match == 0 {
-			return packit.DetectResult{}, packit.Fail.WithMessage("No Js file found !")
+			return packit.DetectResult{}, packit.Fail.WithMessage("No js file found !")
 		}
 
 		return packit.DetectResult{

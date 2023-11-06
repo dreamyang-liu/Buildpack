@@ -53,6 +53,10 @@ func NewPythonBuildFunc(logs scribe.Emitter, entryResolver draft.Planner, depend
 
 		pythonLayer.SBOM, err = sbomContent.InFormats(context.BuildpackInfo.SBOMFormats...)
 
+		if err != nil {
+			return packit.BuildResult{}, err
+		}
+
 		os.Setenv(PythonPath, pythonLayer.Path)
 		pythonLayer.SharedEnv.Default(PythonPath, pythonLayer.Path)
 

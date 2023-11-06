@@ -41,13 +41,17 @@ func NewNodejsBuildFunc(logs scribe.Emitter) packit.BuildFunc {
 
 		dependencyManager.Deliver(dependency, context.CNBPath, nodejsLayer.Path, context.Platform.Path)
 
+		logs.GeneratingSBOM(nodejsLayer.Path)
 		sbomContent, err := sbom.GenerateFromDependency(dependency, nodejsLayer.Path)
 		if err != nil {
 			return packit.BuildResult{}, err
 		}
-		logs.GeneratingSBOM(nodejsLayer.Path)
+
 		logs.FormattingSBOM(context.BuildpackInfo.SBOMFormats...)
 		nodejsLayer.SBOM, err = sbomContent.InFormats(context.BuildpackInfo.SBOMFormats...)
+		if err != nil {
+			return packit.BuildResult{}, err
+		}
 		nodejsLayer.SharedEnv.Default(NODE_ENV, DEFAULT_NODE_ENV_VALUE)
 
 		launchMetadata := packit.LaunchMetadata{

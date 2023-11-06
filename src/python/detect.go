@@ -3,7 +3,7 @@ package python
 import (
 	"aws-buildpacks/src/common"
 	"os"
-	"strings"
+	"regexp"
 
 	"github.com/paketo-buildpacks/packit/v2"
 	"github.com/paketo-buildpacks/packit/v2/scribe"
@@ -26,19 +26,10 @@ func NewPythonRuntimeDetectFunc(logs scribe.Emitter) packit.DetectFunc {
 				},
 			})
 		}
-
-		entries, err := os.ReadDir("./")
-		if err != nil {
-			return packit.DetectResult{}, err
-		}
-		match := 0
-		for _, e := range entries {
-			if strings.HasSuffix(e.Name(), ".py") || e.Name() == RequirementsTxt {
-				match += 1
-			}
-		}
+		regexExpression, _ := regexp.Compile(`.+\.py`)
+		match := common.RecursiveSearch(logs, context.WorkingDir, *regexExpression)
 		if match == 0 {
-			return packit.DetectResult{}, packit.Fail.WithMessage("No py or requirements.txt file found !")
+			return packit.DetectResult{}, packit.Fail.WithMessage("No py file found !")
 		}
 
 		logs.Detail("Setting up default python version")
